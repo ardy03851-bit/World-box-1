@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Worldbox" />
+<meta name="theme-color" content="#07070a" />
+<meta name="description" content="Worldbox — a cinematic 3D scene studio for iPad and desktop. Build worlds from your own assets, light them beautifully, and shoot them like film." />
+<title>Worldbox — Scene Studio</title>
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./icons/icon-180.png" />
+<link rel="stylesheet" href="./css/app.css" />
+</head>
+<body>
+
+<!-- ══════════════ SVG ICON SPRITE ══════════════ -->
+<svg id="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 3.5 19 10l-6.2 2.3L10 19z"/><path d="M12.7 12.2 19 18.5"/></symbol>
+    <symbol id="i-move" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/><path d="m9 6 3-3 3 3M9 18l3 3 3-3M6 9l-3 3 3 3M18 9l3 3-3 3"/></symbol>
+    <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4.5h-4.5"/><circle cx="12" cy="12" r="2.2"/></symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24"><path d="M4 20 20 4"/><path d="M4 12v8h8M20 12V4h-8"/><rect x="9" y="9" width="6" height="6" rx="1"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/><path d="m3 17.5 9 5 9-5" opacity=".5"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="8.5" cy="9.5" r="1.6"/><path d="m4 18 5.5-5.5 3.5 3.5 3-3L20 17"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.7l1.3-2h6.9l1.3 2h1.8A2.5 2.5 0 0 1 21 8.5v9A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5v-9Z"/><circle cx="12" cy="13" r="3.6"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 15V3"/><path d="m7.5 7.5 4.5-4.5 4.5 4.5"/><path d="M4 14v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7.5 10.5 4.5 4.5 4.5-4.5"/><path d="M4 18v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 0 1 5.6.9c0 1.9-2.8 2.2-2.8 4"/><circle cx="12" cy="17.5" r=".9" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a6 6 0 1 1 0 12H9"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m15 14 5-5-5-5"/><path d="M20 9h-9a6 6 0 1 0 0 12h4"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+    <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M4 4 20 20"/><path d="M9.9 5.9A9.6 9.6 0 0 1 12 5.5c6 0 9.5 6.5 9.5 6.5a17 17 0 0 1-2.4 3.3M6.3 7.8A17 17 0 0 0 2.5 12S6 18.5 12 18.5c1 0 1.9-.2 2.7-.5"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="10.5" rx="3"/><path d="M8 10V7.5a4 4 0 0 1 8 0V10"/></symbol>
+    <symbol id="i-unlock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="10.5" rx="3"/><path d="M8 10V7.5a4 4 0 0 1 7.5-2"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4.5h6V7M6 7l1 13h10l1-13"/><path d="M10 11v5M14 11v5"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+    <symbol id="i-focus" viewBox="0 0 24 24"><path d="M4 9V6a2 2 0 0 1 2-2h3M15 4h3a2 2 0 0 1 2 2v3M20 15v3a2 2 0 0 1-2 2h-3M9 20H6a2 2 0 0 1-2-2v-3"/><circle cx="12" cy="12" r="2.4"/></symbol>
+    <symbol id="i-magnet" viewBox="0 0 24 24"><path d="M5 4v8a7 7 0 0 0 14 0V4"/><path d="M5 8h4M15 8h4"/><path d="M5 4h4v4H5zM15 4h4v4h-4z"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.6 4 5.8 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.8-4-9s1.4-6.4 4-9Z"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h3.2a2 2 0 0 1 1.5.7l1.3 1.5h6A2.5 2.5 0 0 1 20 9.7v6.8a2.5 2.5 0 0 1-2.5 2.5h-12A2.5 2.5 0 0 1 3 16.5v-9Z"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 3 20 7.5v9L12 21 4 16.5v-9L12 3Z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></symbol>
+    <symbol id="i-sphere" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18"/></symbol>
+    <symbol id="i-cylinder" viewBox="0 0 24 24"><ellipse cx="12" cy="6.2" rx="7" ry="2.8"/><path d="M5 6.2v11.6c0 1.55 3.13 2.8 7 2.8s7-1.25 7-2.8V6.2"/></symbol>
+    <symbol id="i-cone" viewBox="0 0 24 24"><path d="M12 3 19.5 18"/><path d="M12 3 4.5 18"/><ellipse cx="12" cy="18" rx="7.5" ry="3"/></symbol>
+    <symbol id="i-capsule" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="5"/><path d="M7 9h10M7 15h10"/></symbol>
+    <symbol id="i-torus" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="6"/><ellipse cx="12" cy="12" rx="4" ry="2.2"/></symbol>
+    <symbol id="i-gem" viewBox="0 0 24 24"><path d="M12 3 20 9l-8 12L4 9l8-6Z"/><path d="M4 9h16M12 3v18M8 9l4 12 4-12"/></symbol>
+    <symbol id="i-mountain" viewBox="0 0 24 24"><path d="m3 19 6-9 3.5 5 2.5-3.5L21 19Z"/><path d="m7.2 13.1 1.8-1.4 1.9 1.6"/></symbol>
+    <symbol id="i-light" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.6.5.9 1.2.9 1.9v.3h5.4v-.3c0-.7.3-1.4.9-1.9A6 6 0 0 0 12 3Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-chevrond" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7"/></symbol>
+    <symbol id="i-photo" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="12" cy="12" r="3.4"/><path d="M7 5V3.5h10V5"/></symbol>
+    <symbol id="i-aperture" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v7.5M19.8 7.5 13.5 11M19.8 16.5 13.4 13M12 21v-7.5M4.2 16.5 10.6 13M4.2 7.5 10.5 11"/></symbol>
+    <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M7.5 4v16M16.5 4v16M3 12h18M3 8h4.5M3 16h4.5M16.5 8H21M16.5 16H21"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 10.5 12 4l8 6.5V19a1.5 1.5 0 0 1-1.5 1.5H15V14H9v6.5H5.5A1.5 1.5 0 0 1 4 19v-8.5Z"/></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 15h8"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M13 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V9l-6-6Z"/><path d="M13 3v6h6"/></symbol>
+    <symbol id="i-zip" viewBox="0 0 24 24"><path d="M13 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V9l-6-6Z"/><path d="M13 3v6h6"/><path d="M10 6h2M10 9h2M10 12h2M10 15h2"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="18.5" cy="12" r="1.4" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-wand" viewBox="0 0 24 24"><path d="M4 20 16 8"/><path d="m14 6 2-2 2 2-2 2-2-2Z"/><path d="M18 12h2M19 15h2M8 4h2M9 7h2"/></symbol>
+    <symbol id="i-shutter" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="6.2"/></symbol>
+    <symbol id="i-gallery" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2.5"/><path d="M6 6V4.5A1.5 1.5 0 0 1 7.5 3h9A1.5 1.5 0 0 1 18 4.5V6"/><path d="m6.5 16 3.5-4 2.5 3 2-2.5L18 16"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.4-5.7"/><path d="M20 4v4.5h-4.5"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 4 2.8 20h18.4L12 4Z"/><path d="M12 9v5"/><circle cx="12" cy="17" r=".9" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+    <symbol id="i-snap" viewBox="0 0 24 24"><path d="M4 4h5v5H4zM15 4h5v5h-5zM4 15h5v5H4zM15 15h5v5h-5z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  </defs>
+</svg>
+
+<!-- ══════════════ VIEWPORT ══════════════ -->
+<canvas id="viewport"></canvas>
+<div id="viewportShade"></div>
+<div id="dropVeil" class="drop-veil"><div class="drop-card"><svg class="ic"><use href="#i-upload"/></svg><strong>Drop anything to import</strong><span>GLB · GLTF · FBX · OBJ · STL · PLY · ZIP · PNG · JPG · HDR</span></div></div>
+
+<!-- ══════════════ TOP BAR ══════════════ -->
+<header id="topbar" class="glass">
+  <button class="icon-btn only-mobile" id="menuBtn" aria-label="Menu"><svg class="ic"><use href="#i-menu"/></svg></button>
+  <a class="brand" href="#" id="homeBtn" title="Worldbox home">
+    <span class="brand-orb"></span>
+    <span class="brand-word">WORLDBOX</span>
+    <span class="badge">BETA</span>
+  </a>
+  <button id="sceneNameBtn" class="scene-title" title="Rename world">
+    <span id="sceneName">Untitled World</span>
+    <svg class="ic tiny"><use href="#i-chevron"/></svg>
+  </button>
+  <div class="top-spacer"></div>
+  <div id="perfPill" class="perf-pill" title="Performance"><span class="dot"></span><span id="fpsText">—</span><span class="sep"></span><span id="triText">—</span></div>
+  <div class="top-group hide-mobile">
+    <button class="icon-btn" id="undoBtn" title="Undo (⌘Z)" disabled><svg class="ic"><use href="#i-undo"/></svg></button>
+    <button class="icon-btn" id="redoBtn" title="Redo (⇧⌘Z)" disabled><svg class="ic"><use href="#i-redo"/></svg></button>
+  </div>
+  <button class="icon-btn hide-mobile" id="viewBtn" title="Camera views"><svg class="ic"><use href="#i-globe"/></svg></button>
+  <button class="pill-btn hide-mobile" id="assetsTopBtn"><svg class="ic"><use href="#i-folder"/></svg><span>Assets</span></button>
+  <button class="pill-btn" id="photoBtn"><svg class="ic"><use href="#i-camera"/></svg><span class="hide-small">Shoot</span></button>
+  <button class="pill-btn primary" id="exportBtn"><svg class="ic"><use href="#i-export"/></svg><span class="hide-small">Export</span></button>
+</header>
+
+<!-- ══════════════ LEFT RAIL ══════════════ -->
+<nav id="rail" class="glass" aria-label="Tools">
+  <button class="rail-btn active" data-panel="tools" title="Tools"><svg class="ic"><use href="#i-cursor"/></svg><span class="rail-tip">Tools</span></button>
+  <button class="rail-btn" data-panel="add" title="Add objects"><svg class="ic"><use href="#i-plus"/></svg><span class="rail-tip">Add</span></button>
+  <button class="rail-btn" data-panel="assets" title="Assets"><svg class="ic"><use href="#i-image"/></svg><span class="rail-tip">Assets</span></button>
+  <button class="rail-btn" data-panel="scene" title="Scene graph"><svg class="ic"><use href="#i-layers"/></svg><span class="rail-tip">Scene</span></button>
+  <button class="rail-btn" data-panel="look" title="Look & light"><svg class="ic"><use href="#i-sun"/></svg><span class="rail-tip">Look</span></button>
+  <div class="rail-spacer"></div>
+  <button class="rail-btn" data-panel="settings" title="Settings"><svg class="ic"><use href="#i-settings"/></svg><span class="rail-tip">Settings</span></button>
+  <button class="rail-btn" data-panel="help" title="Help"><svg class="ic"><use href="#i-help"/></svg><span class="rail-tip">Help</span></button>
+</nav>
+
+<!-- ══════════════ LEFT PANEL ══════════════ -->
+<aside id="leftPanel" class="glass panel">
+  <div class="panel-head">
+    <div class="panel-heading"><span class="panel-kicker" id="leftKicker">TOOLS</span><h2 id="leftTitle">Transform</h2></div>
+    <button class="icon-btn ghost panel-close" data-close="left" aria-label="Close panel"><svg class="ic"><use href="#i-close"/></svg></button>
+  </div>
+  <div class="panel-body scroll" id="leftBody"></div>
+</aside>
+
+<!-- ══════════════ RIGHT INSPECTOR ══════════════ -->
+<aside id="inspector" class="glass panel">
+  <div class="panel-head">
+    <div class="panel-heading"><span class="panel-kicker" id="inspKicker">SELECTION</span><h2 id="inspTitle">Inspector</h2></div>
+    <div class="head-actions">
+      <button class="icon-btn ghost" id="dupBtn" title="Duplicate (⌘D)"><svg class="ic"><use href="#i-copy"/></svg></button>
+      <button class="icon-btn ghost" id="delBtn" title="Delete"><svg class="ic"><use href="#i-trash"/></svg></button>
+      <button class="icon-btn ghost panel-close" data-close="insp" aria-label="Close inspector"><svg class="ic"><use href="#i-close"/></svg></button>
+    </div>
+  </div>
+  <div class="panel-body scroll" id="inspectorBody"></div>
+</aside>
+
+<!-- ══════════════ BOTTOM DOCK ══════════════ -->
+<div id="dock" class="glass">
+  <button class="dock-upload" id="dockUpload" title="Upload assets">
+    <svg class="ic"><use href="#i-upload"/></svg><span>Import</span>
+  </button>
+  <div class="dock-scroller" id="dockItems">
+    <div class="dock-empty" id="dockEmpty">Your assets live here — drop files anywhere, or tap Import.</div>
+  </div>
+  <button class="dock-expand" id="dockExpand" title="Open library">
+    <svg class="ic"><use href="#i-grid"/></svg><span class="dock-count" id="assetCount">0</span>
+  </button>
+</div>
+
+<!-- ══════════════ TRANSFORM BAR ══════════════ -->
+<div id="transformBar" class="glass pillbar hidden">
+  <div class="tool-group" role="group" aria-label="Transform mode">
+    <button class="tool-btn active" data-mode="translate" title="Move (W)"><svg class="ic"><use href="#i-move"/></svg></button>
+    <button class="tool-btn" data-mode="rotate" title="Rotate (E)"><svg class="ic"><use href="#i-rotate"/></svg></button>
+    <button class="tool-btn" data-mode="scale" title="Scale (R)"><svg class="ic"><use href="#i-scale"/></svg></button>
+  </div>
+  <div class="tool-divider"></div>
+  <button class="tool-btn" id="snapBtn" title="Snapping"><svg class="ic"><use href="#i-magnet"/></svg></button>
+  <button class="tool-btn" id="spaceBtn" title="World / local space"><svg class="ic"><use href="#i-globe"/></svg></button>
+  <div class="tool-divider"></div>
+  <button class="tool-btn" id="focusBtn" title="Frame selection (F)"><svg class="ic"><use href="#i-focus"/></svg></button>
+  <button class="tool-btn danger" id="barDeleteBtn" title="Delete"><svg class="ic"><use href="#i-trash"/></svg></button>
+</div>
+
+<!-- ══════════════ PHOTO MODE ══════════════ -->
+<div id="photoUI" class="hidden">
+  <div class="photo-top glass">
+    <button class="pill-btn" id="photoExit"><svg class="ic"><use href="#i-close"/></svg><span>Exit</span></button>
+    <div class="photo-title"><span class="panel-kicker">STUDIO CAMERA</span><strong id="photoLens">45mm</strong></div>
+    <div class="photo-top-right">
+      <button class="icon-btn" id="photoGalleryBtn" title="Gallery"><svg class="ic"><use href="#i-gallery"/></svg></button>
+      <button class="icon-btn" id="photoGridBtn" title="Guides"><svg class="ic"><use href="#i-grid"/></svg></button>
+      <button class="icon-btn" id="photoShareBtn" title="Download last shot"><svg class="ic"><use href="#i-download"/></svg></button>
+    </div>
+  </div>
+  <div class="photo-frame" id="photoFrame">
+    <div class="photo-grid hidden" id="photoGrid">
+      <i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <div class="photo-corners"><b></b><b></b><b></b><b></b></div>
+  </div>
+  <div class="photo-bar glass">
+    <div class="photo-bar-scroll">
+      <div class="photo-field" id="aspectField">
+        <span class="mini-label">FRAME</span>
+        <div class="seg small" id="aspectSeg">
+          <button data-v="free" class="active">Free</button>
+          <button data-v="1:1">1:1</button>
+          <button data-v="4:5">4:5</button>
+          <button data-v="16:9">16:9</button>
+        </div>
+      </div>
+      <div class="photo-field">
+        <span class="mini-label">LENS</span>
+        <div class="focal"><input type="range" id="lensSlider" min="12" max="150" step="1" value="45"><span id="lensVal">45mm</span></div>
+      </div>
+      <div class="photo-field">
+        <span class="mini-label">LOOK</span>
+        <div class="chips small" id="filmChips"></div>
+      </div>
+      <div class="photo-field">
+        <span class="mini-label">EXPOSURE</span>
+        <div class="expo"><input type="range" id="expoSlider" min="-2" max="2" step="0.05" value="0"><span id="expoVal">0.0</span></div>
+      </div>
+      <div class="photo-field">
+        <span class="mini-label">FOCUS</span>
+        <div class="focus-row"><button class="chip" id="autoFocusBtn">Auto</button><input type="range" id="focusSlider" min="0.2" max="120" step="0.1" value="8"><span id="focusVal">8m</span></div>
+      </div>
+      <div class="photo-field">
+        <span class="mini-label">SIZE</span>
+        <div class="seg small" id="resSeg"><button data-v="1" class="active">1×</button><button data-v="2">2×</button><button data-v="4">4×</button></div>
+      </div>
+    </div>
+    <button class="shutter" id="shutterBtn" aria-label="Take photo"><span></span></button>
+  </div>
+  <div class="flash" id="flash"></div>
+</div>
+
+<!-- ══════════════ OVERLAYS ══════════════ -->
+<div id="sheetBackdrop" class="sheet-backdrop hidden"></div>
+
+<section id="librarySheet" class="sheet glass wide hidden" aria-label="Asset library">
+  <div class="sheet-head">
+    <div class="panel-heading"><span class="panel-kicker">LIBRARY</span><h2>Assets</h2></div>
+    <div class="sheet-tools">
+      <label class="search"><svg class="ic"><use href="#i-search"/></svg><input id="assetSearch" type="search" placeholder="Search assets" autocomplete="off" /></label>
+      <button class="pill-btn primary" id="libraryUpload"><svg class="ic"><use href="#i-upload"/></svg><span>Upload</span></button>
+      <button class="icon-btn" data-close-sheet aria-label="Close"><svg class="ic"><use href="#i-close"/></svg></button>
+    </div>
+  </div>
+  <div class="library-tabs">
+    <div class="seg" id="libraryTabs">
+      <button data-tab="all" class="active">All</button>
+      <button data-tab="model">Models</button>
+      <button data-tab="texture">Textures</button>
+      <button data-tab="env">Environments</button>
+      <button data-tab="photo">Photos</button>
+    </div>
+    <span class="library-meta" id="libraryMeta"></span>
+  </div>
+  <div class="library-body scroll" id="libraryBody">
+    <div class="upload-zone" id="libraryDrop">
+      <div class="upload-orb"><svg class="ic"><use href="#i-upload"/></svg></div>
+      <strong>Drop anything here</strong>
+      <span>3D models, texture sets, whole ZIP folders, HDRIs</span>
+      <div class="upload-actions">
+        <button class="pill-btn primary" id="pickFiles">Choose files</button>
+        <button class="pill-btn" id="pickZip">Choose ZIP</button>
+      </div>
+    </div>
+    <div class="asset-grid" id="assetGrid"></div>
+    <div class="empty-note hidden" id="libraryEmpty">No assets yet. Import a model to begin.</div>
+  </div>
+</section>
+
+<section id="gallerySheet" class="sheet glass hidden" aria-label="Photo gallery">
+  <div class="sheet-head">
+    <div class="panel-heading"><span class="panel-kicker">CAPTURES</span><h2>Gallery</h2></div>
+    <div class="sheet-tools">
+      <button class="pill-btn" id="downloadAllPhotos"><svg class="ic"><use href="#i-download"/></svg><span>Download all</span></button>
+      <button class="icon-btn" data-close-sheet aria-label="Close"><svg class="ic"><use href="#i-close"/></svg></button>
+    </div>
+  </div>
+  <div class="library-body scroll"><div class="gallery-grid" id="galleryGrid"></div><div class="empty-note hidden" id="galleryEmpty">No captures yet. Tap Shoot and press the shutter.</div></div>
+</section>
+
+<div id="photoViewer" class="photo-viewer hidden"><img id="photoViewerImg" alt="Capture"/><div class="viewer-actions"><button class="pill-btn primary" id="downloadPhoto">Save image</button><button class="pill-btn" id="deletePhoto">Delete</button><button class="icon-btn" id="closePhotoViewer"><svg class="ic"><use href="#i-close"/></svg></button></div></div>
+
+<div id="menuSheet" class="modal glass hidden">
+  <div class="modal-head"><span class="panel-kicker">WORLDBOX</span><button class="icon-btn" data-close-menu><svg class="ic"><use href="#i-close"/></svg></button></div>
+  <div class="modal-body" id="menuBody"></div>
+</div>
+
+<div id="exportSheet" class="modal glass hidden">
+  <div class="modal-head"><span class="panel-kicker">EXPORT</span><button class="icon-btn" data-close-menu><svg class="ic"><use href="#i-close"/></svg></button></div>
+  <div class="modal-body" id="exportBody"></div>
+</div>
+
+<div id="viewSheet" class="modal glass hidden">
+  <div class="modal-head"><span class="panel-kicker">CAMERA</span><button class="icon-btn" data-close-menu><svg class="ic"><use href="#i-close"/></svg></button></div>
+  <div class="modal-body" id="viewBody"></div>
+</div>
+
+<div id="confirmSheet" class="modal glass hidden">
+  <div class="modal-head"><span class="panel-kicker">CONFIRM</span><button class="icon-btn" data-close-menu><svg class="ic"><use href="#i-close"/></svg></button></div>
+  <div class="modal-body">
+    <p id="confirmText">Are you sure?</p>
+    <div class="modal-actions"><button class="pill-btn" data-close-menu>Cancel</button><button class="pill-btn danger" id="confirmYes">Delete</button></div>
+  </div>
+</div>
+
+<div id="onboarding" class="onboarding hidden">
+  <div class="onboard-card glass">
+    <span class="panel-kicker" id="onboardKicker">WELCOME</span>
+    <h2 id="onboardTitle">Build worlds with your hands</h2>
+    <p id="onboardText">Drag to orbit, pinch to zoom, tap anything to select it.</p>
+    <div class="onboard-dots" id="onboardDots"></div>
+    <div class="modal-actions"><button class="pill-btn" id="onboardSkip">Skip</button><button class="pill-btn primary" id="onboardNext">Next</button></div>
+  </div>
+</div>
+
+<div id="home" class="home">
+  <div class="home-top">
+    <div class="brand big"><span class="brand-orb"></span><span class="brand-word">WORLDBOX</span><span class="badge">EXPERIMENT</span></div>
+    <div class="home-top-actions">
+      <button class="icon-btn" id="homeHelpBtn" title="Help"><svg class="ic"><use href="#i-help"/></svg></button>
+      <button class="pill-btn" id="homeOpenFiles"><svg class="ic"><use href="#i-folder"/></svg><span>Open assets</span></button>
+    </div>
+  </div>
+  <button class="home-close icon-btn" id="homeClose" title="Close"><svg class="ic"><use href="#i-close"/></svg></button>
+
+  <div class="orb-field" id="orbField"></div>
+
+  <div class="home-feature" id="homeFeature">
+    <div class="hero-orb" id="heroOrb">
+      <div class="hero-sheen"></div>
+      <div class="hero-content">
+        <button class="explore-pill" id="exploreBtn"><svg class="ic"><use href="#i-cursor"/></svg><span>EXPLORE</span></button>
+        <h1 id="heroTitle">Noir Canyon</h1>
+        <p id="heroSub">A monochrome desert, carved by light.</p>
+        <span class="hero-meta" id="heroMeta">WORLDBOX STUDIO · PROCEDURAL</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-foot">
+    <button class="create-pill" id="createBtn"><svg class="ic"><use href="#i-wand"/></svg><span>Create with Worldbox</span></button>
+    <button class="continue-pill hidden" id="continueBtn"><svg class="ic"><use href="#i-play"/></svg><span id="continueLabel">Continue</span></button>
+  </div>
+
+  <div class="home-hint">Swipe the orbs · Tap one to step inside</div>
+</div>
+
+<div id="boot" class="boot">
+  <div class="boot-orb"></div>
+  <span class="brand-word">WORLDBOX</span>
+  <div class="boot-bar"><i></i></div>
+  <span class="boot-note" id="bootNote">Preparing the studio…</span>
+</div>
+
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<div id="busy" class="busy hidden"><div class="busy-card glass"><div class="spinner"></div><div><strong id="busyTitle">Importing</strong><span id="busyNote">Working…</span></div><div class="busy-bar"><i id="busyBar"></i></div></div></div>
+
+<input id="fileInput" type="file" multiple accept=".glb,.gltf,.fbx,.obj,.mtl,.stl,.ply,.zip,.png,.jpg,.jpeg,.webp,.ktx2,.hdr,.exr,.wbox,.json,.bin,.tga,.bmp" hidden />
+<input id="zipInput" type="file" accept=".zip,.wbox" hidden />
+<input id="projectInput" type="file" accept=".wbox,.json" hidden />
+
+<script src="./vendor/jszip/jszip.min.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/core/three.module.js",
+    "three/addons/": "./vendor/three/addons/"
+  }
+}
+</script>
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
