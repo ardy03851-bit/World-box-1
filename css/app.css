@@ -722,6 +722,8 @@ body.photo-mode #topbar,body.photo-mode #rail,body.photo-mode .panel,body.photo-
   #inspector{width:min(84vw,320px)}
   #leftPanel{width:min(84vw,300px)}
   .panel-body{padding:12px}
+  .orb.create-orb{display:none}
+  .orb-field{inset:-4% -2%}
   .photo-bar{height:auto;padding:10px 12px;flex-wrap:wrap;gap:8px;border-radius:20px}
   .photo-bar-scroll{width:100%;padding-bottom:2px;flex-wrap:wrap;row-gap:8px;column-gap:14px;overflow:visible;justify-content:center}
   .photo-field{flex:0 1 auto}
