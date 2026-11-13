@@ -21,7 +21,7 @@ import { normalizeAsset } from '../core/objects.js';
 import { detectChannel, matchTextures, applyTextureToSlot } from './textures.js';
 
 const MODEL_EXT = new Set(['glb', 'gltf', 'fbx', 'obj', 'stl', 'ply']);
-const IMAGE_EXT = new Set(['png', 'jpg', 'jpeg', 'webp', 'bmp', 'avif', 'ktx2']);
+const IMAGE_EXT = new Set(['png', 'jpg', 'jpeg', 'webp', 'bmp', 'avif']);
 const ENV_EXT = new Set(['hdr', 'exr']);
 const SUPPORTED = new Set([...MODEL_EXT, ...IMAGE_EXT, ...ENV_EXT, 'zip', 'wbox', 'bin', 'mtl']);
 

@@ -1,5 +1,5 @@
 /* Worldbox service worker — offline shell + runtime asset cache */
-const VERSION = 'worldbox-v1';
+const VERSION = 'worldbox-v2';
 const SHELL = ['./', './index.html', './css/app.css', './manifest.webmanifest', './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', (event) => {
